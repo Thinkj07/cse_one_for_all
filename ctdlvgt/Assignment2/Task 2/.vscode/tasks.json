@@ -1,0 +1,33 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "type": "shell",
+            "command": "msbuild",
+            "args": [
+                "-std=c++17",
+                "-I", "./include",
+                "-I", "./include/tensor",
+                "-I", "./include/sformat",
+                "-I", "./include/ann",
+                "-I", "./demo",
+                "./src/ann/file1.cpp",
+                "./src/ann/file2.cpp",
+                "./src/tensor/xtensor_lib.cpp",
+                "./program.cpp",
+                "-o",
+                "program"
+            ],
+            "group": "build",
+            "presentation": {
+                // Reveal the output only if unrecognized errors occur.
+                "reveal": "silent"
+            },
+            // Use the standard MS compiler pattern to detect errors, warnings and infos
+            "problemMatcher": "$msCompile"
+        }
+    ]
+}

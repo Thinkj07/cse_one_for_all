@@ -1,0 +1,295 @@
+#Chuong trinh: ten chuong trinh
+	.include "macro.mac"
+#Data segment
+	.data
+#Cac dinh nghia bien
+filename:	.asciiz	"SOLE.TXT"
+str1:		.asciiz	"So thuc 1 (2 so le): "
+str2:		.asciiz	"So thuc 2 (3 so le): "
+str3:		.asciiz	"So thuc 3 (4 so le): "
+int:		.word	12345
+buffer:		.space 	16
+flo_10000:	.float 	10000.0
+flo_1000:	.float 	1000.0
+flo_100:	.float 	100.0
+int_nguyen:	.word 	1
+int_thuc:	.word 	1
+flo_nguyen:	.float	1.1
+flo_thuc:	.float 	1.1
+str_cham:	.asciiz "."
+char_0:		.asciiz	"0" 
+char_00:	.asciiz	"00"
+char_000:	.asciiz	"000"
+char_0000:	.asciiz	"0000"
+cha_.:		.asciiz	"."
+cha_n:		.asciiz	"\n"
+#Cac cau nhac nhap du lieu
+#Code segment
+	.text
+main:	
+# Mo file --------------------------------------------------------------------------------------
+	li 	$v0, 13			# Mo file
+    	la 	$a0, filename       
+    	li 	$a1, 1              
+    	li 	$a2, 0               
+    	syscall
+    	move 	$s3, $v0          
+#So thuc 1 --------------------------------------------------------------------------------------  
+	print_str(str1)			# Bat dau ghi dong thu nhat	
+    	li 	$v0, 15              
+    	move 	$a0, $s3           
+    	la 	$a1, str1       	
+    	li 	$a2, 21          	
+    	syscall
+    	li	$t2, 1
+    	jal	set_seed_time
+    	jal	Sothuc1
+    	jal	check_nguyen
+	jal	int_2_str
+	jal	print_daucham
+	jal	clear_buffer
+	lw	$t0, int_thuc
+	jal	check_thuc1
+	jal	int_2_str
+	jal	print_linefeed
+#So thuc 2 -------------------------------------------------------------------------------------- 
+	print_str(str2)			# Ghi dong thu 2
+    	li 	$v0, 15              
+    	move 	$a0, $s3           
+    	la 	$a1, str2       	
+    	li 	$a2, 21          	
+    	syscall
+    	jal	set_seed_time
+    	jal	Sothuc2
+    	jal	clear_buffer
+    	lw	$t0, int_nguyen
+    	jal	check_nguyen
+	jal	int_2_str
+	jal	print_daucham
+	jal	clear_buffer
+	lw	$t0, int_thuc
+	jal	check_thuc2
+	jal	int_2_str
+	jal	print_linefeed
+#So thuc 3 -------------------------------------------------------------------------------------- 
+	print_str(str3)			# Ghi dong thu 3
+    	li 	$v0, 15              
+    	move 	$a0, $s3          
+    	la 	$a1, str3       	
+    	li 	$a2, 21          	
+    	syscall
+    	jal	set_seed_time
+    	jal	Sothuc3
+    	jal	clear_buffer
+    	lw	$t0, int_nguyen
+    	jal	check_nguyen
+	jal	int_2_str
+	jal	print_daucham
+	jal	clear_buffer
+	lw	$t0, int_thuc
+	jal	check_thuc3
+	jal	int_2_str
+# Dong file -------------------------------------------------------------------------------------
+	li 	$v0, 16      
+	move 	$a0, $s3  
+	syscall        
+#ket thuc chuong trinh (syscall)
+Kthuc:	addi	$v0,$zero,10
+	syscall
+# -------------------------------
+set_seed_time:				# Ham lay seed
+	addi	$v0, $zero, 30		
+  	syscall    
+	move	$a1, $a0		
+	mul	$a1, $a1, $t2
+	addi	$v0, $zero, 40		
+	move 	$a0, $a1		
+	syscall
+	jr	$ra
+check_nguyen:				# Kiem tra phan nguyen, 
+	lw	$t2, int_nguyen		
+	blez	$t2, print_3zero	# Nho hon 0 thi in 000
+	blt	$t2, 10, print_2zero	# Nho hon 10 thi in 00
+	blt	$t2, 100, print_1zero	# Nho hon 100 thi in 0
+	jr	$ra
+check_thuc1:				# Kiem tra phan thuc
+	lw	$t2, int_thuc
+	blez	$t2, print_2zero
+	blt	$t2, 10, print_1zero
+	jr	$ra
+check_thuc2:	
+	lw	$t2, int_thuc
+	blez	$t2, print_3zero
+	blt	$t2, 10, print_2zero
+	blt	$t2, 100, print_1zero
+	jr	$ra
+check_thuc3:	
+	lw	$t2, int_thuc
+	blez	$t2, print_4zero
+	blt	$t2, 10, print_3zero
+	blt	$t2, 100, print_2zero
+	blt	$t2, 1000, print_1zero
+	jr	$ra
+print_daucham:				# In dau cham
+	print_str(cha_.)	
+	li 	$v0, 15              
+    	move 	$a0, $s3           
+    	la 	$a1, cha_.          
+    	li 	$a2, 1           
+    	syscall
+    	jr	$ra
+print_nguyen:				# In phan nguyen
+	print_str(buffer)
+	li 	$v0, 15              
+    	move 	$a0, $s3           
+    	la 	$a1, buffer          
+    	move 	$a2, $t2           
+    	syscall
+	jr	$ra
+print_linefeed:				# In phan thuc
+	linefeed
+	li 	$v0, 15              
+    	move 	$a0, $s3           
+    	la 	$a1, cha_n         
+    	li 	$a2, 1          
+    	syscall
+	jr	$ra
+clear_buffer:				# clear gia tri cua buffer
+	la 	$t0, buffer     
+    	li 	$t1, 0           
+    	li 	$t2, 4           
+clear_loop:
+	beq 	$t2, $zero, done  
+    	sw 	$t1, 0($t0)             
+    	addi 	$t0, $t0, 4           
+    	addi 	$t2, $t2, -1          
+    	j 	clear_loop               
+done:
+	jr	$ra
+int_2_str:	
+	la 	$t1, buffer		# Chuyen int -> str      
+    	addi 	$t2, $zero, 0      
+convert:
+    	div 	$t0, $t0, 10      
+    	mfhi 	$t3                
+    	addi 	$t3, $t3, 48       
+    	sb 	$t3, 0($t1)          
+    	addi 	$t1, $t1, 1        
+    	addi 	$t2, $t2, 1       
+    	mflo 	$t0               
+    	bnez 	$t0, convert       
+
+    	sub 	$t1, $t1, $t2       
+    	add 	$t4, $t1, $t2       
+    	sub 	$t4, $t4, 1        
+reverse:				# Dao nguoc chuoi 
+    	bge 	$t1, $t4, print_nguyen  # Xong thi in luon
+    	lb 	$t5, 0($t1)          
+    	lb 	$t6, 0($t4)          
+    	sb 	$t6, 0($t1)          
+    	sb 	$t5, 0($t4)          
+    	addi 	$t1, $t1, 1        
+    	subi 	$t4, $t4, 1        
+    	j reverse
+print_1zero:				# In 1 so 0
+	print_str(char_0)
+	li 	$v0, 15              
+    	move 	$a0, $s3          
+    	la 	$a1, char_0        	
+    	li 	$a2, 1          	
+    	syscall
+    	jr 	$ra
+print_2zero:				# In 2 so 0
+	print_str(char_00)
+	li 	$v0, 15              
+    	move 	$a0, $s3           
+    	la 	$a1, char_00        	
+    	li 	$a2, 2          	
+    	syscall
+    	jr 	$ra
+print_3zero:				# In 3 so 0
+	print_str(char_000)
+	li 	$v0, 15              
+    	move 	$a0, $s3           
+    	la 	$a1, char_000        	
+    	li 	$a2, 3          	
+    	syscall
+    	jr 	$ra
+print_4zero:				# In 4 so 0
+	print_str(char_0000)
+	li 	$v0, 15              
+    	move 	$a0, $s3           
+    	la 	$a1, char_0000        	
+    	li 	$a2, 4          	
+    	syscall
+    	jr 	$ra
+Sothuc1:				# Random so thuc 1
+	addi	$v0, $zero, 43		
+	syscall				
+	swc1	$f0, flo_nguyen		# Luu vao f0
+	
+	lwc1	$f2, flo_1000		# Luu 1000 vao f2
+	mul.s	$f0, $f0, $f2		# Nhan f0 voi 1000
+	mov.s	$f1, $f0		# Luu vao f1
+
+	trunc.w.s $f0, $f0		# Lay phan nguyen cua f0
+	mfc1 	$t0, $f0		# Luu vao t1
+	cvt.s.w $f0, $f0		# Chuyen f0 nguyen sang f0 thuc
+
+	sub.s	$f1, $f1, $f0		# Lay phan thuc cua f1
+	lwc1	$f2, flo_100		# Luu 100 vao f2
+	mul.s	$f1, $f1, $f2		# Nhan f1 voi 100
+	trunc.w.s $f1, $f1		# Lay phan thuc nguyen	 
+	mfc1 	$t1, $f1		# Luu vao t1
+	
+	sw	$t0, int_nguyen		
+	sw	$t1, int_thuc
+
+	jr	$ra
+Sothuc2:
+	addi	$v0, $zero, 43		
+	syscall				
+	swc1	$f0, flo_nguyen
+
+	lwc1	$f2, flo_1000		
+	mul.s	$f0, $f0, $f2		
+	mov.s	$f1, $f0	
+
+	trunc.w.s $f0, $f0		
+	mfc1 	$t0, $f0		
+	cvt.s.w $f0, $f0		
+
+	sub.s	$f1, $f1, $f0		
+	lwc1	$f2, flo_1000	
+	mul.s	$f1, $f1, $f2		
+	trunc.w.s $f1, $f1		
+	mfc1 	$t1, $f1	
+	
+	sw	$t0, int_nguyen		
+	sw	$t1, int_thuc
+
+	jr	$ra
+Sothuc3:
+	addi	$v0, $zero, 43		
+	syscall				
+	swc1	$f0, flo_nguyen
+	
+	lwc1	$f2, flo_1000		
+	mul.s	$f0, $f0, $f2		
+	mov.s	$f1, $f0	
+
+	trunc.w.s $f0, $f0		
+	mfc1 	$t0, $f0		
+	cvt.s.w $f0, $f0		
+
+	sub.s	$f1, $f1, $f0		
+	lwc1	$f2, flo_10000	
+	mul.s	$f1, $f1, $f2		
+	trunc.w.s $f1, $f1		
+	mfc1 	$t1, $f1	
+	
+	sw	$t0, int_nguyen		
+	sw	$t1, int_thuc
+
+	jr	$ra
+# -------------------------------

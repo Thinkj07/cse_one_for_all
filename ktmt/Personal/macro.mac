@@ -1,0 +1,68 @@
+#Output
+.macro print_str (%str_s)
+	la $a0, %str_s
+	addi $v0, $zero, 4
+	syscall
+.end_macro
+
+.macro print_int(%var)
+	lw $a0, %var
+	addi $v0, $zero, 1
+	syscall
+.end_macro
+
+.macro print_flo(%var)
+	lwc1 $f12, %var
+	addi $v0, $zero, 2
+	syscall
+.end_macro
+#-----------------------------------------------------
+.macro print_str_int (%prompt, %var)
+	print_str (%prompt)
+	lw $a0, %var
+	addi $v0, $zero, 1
+	syscall
+.end_macro	
+.macro scan_str_int(%prompt, %var)
+	print_str (%prompt)
+	addi $v0, $zero, 5
+	syscall
+	sw $v0, %var
+.end_macro
+#-----------------------------------------------------
+.macro print_str_flo (%prompt, %var)
+	print_str (%prompt)
+	lwc1 $f12, %var
+	addi $v0, $zero, 2
+	syscall
+.end_macro
+.macro scan_str_flo(%prompt, %var)
+	print_str (%prompt)
+	addi $v0, $zero, 6
+	syscall
+	swc1 $f0, %var
+.end_macro
+#-----------------------------------------------------
+
+.macro scan_str_char(%prompt, %char)
+	print_str(%prompt)
+	addi	$v0, $zero, 12
+	syscall
+	sb	$v0, $char
+.end_macro
+#puts_i
+.macro puts_i(%prompt, %buffer)
+	print_str (%prompt)
+	print_str (%buffer)
+.end_macro
+#xuong dong
+.macro print_asc (%asc)
+	addi $a0, $zero, %asc
+	addi $v0, $zero, 11
+	syscall
+.end_macro
+.macro linefeed
+	print_asc('\n')
+.end_macro
+
+

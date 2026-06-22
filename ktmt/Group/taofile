@@ -1,0 +1,47 @@
+.include "macro.mac"
+
+.data
+# Khai báo các d? li?u
+dulieu1: .word 35, 32, 84, 71, 94, 99, 2, 86, 92, 10 # 10 s? nguyên
+tenfile: .asciiz "INT10.BIN"                                      # Tên file nh? phân
+fdescr:  .word 0                                                 # File descriptor
+
+# Các chu?i xu?t k?t qu?
+str_tc: .asciiz "Thanh cong.\n"
+str_loi: .asciiz "Mo file bi loi.\n"
+
+.text
+.globl main
+
+main:
+    # M? file ?? ghi (syscall 13)
+    la $a0, tenfile
+    li $a1, 1                  # Ch? ?? ghi (write-only)
+    li $v0, 13
+    syscall
+    bgez $v0, tiep             # N?u m? thành công, ti?p t?c
+    print_str str_loi          # N?u th?t b?i, in thông báo l?i
+    j exit
+
+tiep:
+    move $t0, $v0              # L?u file descriptor vào $t0
+    sw $t0, fdescr
+
+    # Ghi 10 s? nguyên vào file
+    li $v0, 15                 # Syscall cho write
+    move $a0, $t0              # File descriptor
+    la $a1, dulieu1            # ??c t? dulieu1
+    li $a2, 40                 # Ghi 40 byte (10 s? nguyên, m?i s? 4 byte)
+    syscall
+
+    # ?óng file
+    lw $a0, fdescr
+    li $v0, 16
+    syscall
+
+    # In thông báo hoàn thành
+    print_str str_tc
+
+exit:
+    li $v0, 10
+    syscall

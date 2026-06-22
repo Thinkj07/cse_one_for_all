@@ -1,0 +1,29 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/include",
+                "${workspaceFolder}/include/ann",
+                "${workspaceFolder}/include/list",
+                "${workspaceFolder}/include/tensor",
+                "${workspaceFolder}/include/tensor/xtensor",
+                "${workspaceFolder}/include/tensor/xtl",
+                "${workspaceFolder}/include/sformat",
+                "${workspaceFolder}/src",
+                "${workspaceFolder}/src/tensor",
+                "${workspaceFolder}/src/ann",
+                "${default}"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "cStandard": "c17",
+            "cppStandard": "gnu++17",
+            "intelliSenseMode": "windows-gcc-x64"
+        }
+    ],
+    "version": 4
+}

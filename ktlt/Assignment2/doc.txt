@@ -1,0 +1,110 @@
+Tài liệu Tóm tắt: Bài tập lớn Lập trình "SHERLOCK A STUDY IN PINK - Phần 2"
+Tóm tắt Báo cáo
+Tài liệu này đặc tả yêu cầu cho Bài tập lớn (BTL) môn Kỹ thuật Lập trình CO1027, với chủ đề "SHERLOCK A STUDY IN PINK - Phần 2". BTL yêu cầu sinh viên xây dựng một chương trình mô phỏng bằng ngôn ngữ C++ theo phương pháp Lập trình Hướng đối tượng (OOP) để tái hiện cuộc truy đuổi giữa Sherlock, Watson và một tên tội phạm trong một mê cung.
+Các điểm chính bao gồm:
+• Kiến trúc Lớp (Class Architecture): Sinh viên phải hiện thực một hệ thống các lớp phức tạp, bao gồm các thành phần bản đồ (Map, MapElement), các đối tượng di chuyển (MovingObject, Sherlock, Watson, Criminal), robot (RobotC, S, W, SW), hệ thống vật phẩm (BaseItem, MagicBook, v.v.) và túi đồ (BaseBag`).
+• Logic Di chuyển Đa dạng: Mỗi đối tượng di chuyển có một quy tắc di chuyển riêng biệt. Sherlock và Watson di chuyển theo một chuỗi quy tắc định trước (moving_rule). Tên tội phạm di chuyển một cách thông minh để tối đa hóa khoảng cách Manhattan tổng cộng tới hai thám tử. Các robot cũng có các thuật toán di chuyển riêng, phụ thuộc vào vị trí của Sherlock, Watson hoặc tội phạm.
+• Cơ chế Tương tác Phức tạp: Chương trình mô phỏng các sự kiện va chạm giữa các nhân vật và robot. Kết quả của các cuộc đụng độ này phụ thuộc vào chỉ số HP và EXP của nhân vật, có thể dẫn đến việc nhận vật phẩm hoặc bị trừ chỉ số.
+• Quản lý Trạng thái và Cấu hình: Toàn bộ chương trình được khởi tạo từ một tập tin cấu hình, định nghĩa kích thước bản đồ, vị trí tường, và các chỉ số ban đầu của nhân vật. Vòng lặp chính của chương trình quản lý từng bước di chuyển, các tương tác, điều kiện kết thúc, và việc tạo ra robot mới.
+• Yêu cầu Kỹ thuật: BTL nhấn mạnh việc sử dụng thành thục các khái niệm OOP như kế thừa và đa hình, quản lý bộ nhớ động (con trỏ), thao tác tệp, và cấu trúc dữ liệu danh sách liên kết đơn cho túi đồ. Sinh viên phải tuân thủ nghiêm ngặt các quy định về cấu trúc file, câu lệnh biên dịch, và quy tắc chống gian lận.
+1. Bối cảnh và Mục tiêu
+Dự án được phóng tác dựa trên bộ phim Sherlock của đài BBC, tiếp nối phần 1 của bài tập. Sau khi Sherlock chấp nhận lên xe taxi của tên tội phạm, anh bị đưa vào một mê cung. Watson, nhận thấy sự di chuyển bất thường qua GPS, cũng đến mê cung để hỗ trợ. BTL yêu cầu sinh viên hiện thực các lớp để mô tả quá trình truy bắt tội phạm này.
+Chuẩn đầu ra của BTL nhằm giúp sinh viên ôn tập và sử dụng thành thục:
+• Hàm và lời gọi hàm.
+• Các thao tác đọc/ghi tập tin.
+• Con trỏ và cấp phát động.
+• Lập trình hướng đối tượng (OOP).
+• Danh sách liên kết đơn.
+2. Kiến trúc Hệ thống và các Lớp Chính
+Hệ thống được xây dựng dựa trên nguyên tắc Lập trình Hướng đối tượng, với một loạt các lớp tương tác với nhau để mô phỏng thế giới trong game.
+2.1. Môi trường Mê cung
+• Map: Biểu diễn bản đồ mê cung dưới dạng một mảng 2 chiều (nr hàng x nc cột). Lớp này chịu trách nhiệm khởi tạo bản đồ từ các vị trí tường (Wall) và tường giả (FakeWall) được cung cấp, đồng thời chứa phương thức isValid để kiểm tra một vị trí có hợp lệ cho một đối tượng di chuyển cụ thể hay không.
+• MapElement: Lớp cơ sở trừu tượng cho các phần tử trên bản đồ.
+    ◦ Path: Lối đi thông thường, mọi đối tượng đều có thể di chuyển qua.
+    ◦ Wall: Tường cứng, không đối tượng nào có thể di chuyển qua.
+    ◦ FakeWall: Tường giả. Sherlock và Tội phạm có thể nhận biết và đi qua. Watson chỉ có thể đi qua nếu EXP của anh lớn hơn EXP yêu cầu (req_exp) của tường. req_exp được tính theo công thức: (r * 257 + c * 139 + 89) % 900 + 1.
+• Position: Biểu diễn tọa độ (r, c) trên bản đồ. Lớp này hỗ trợ khởi tạo từ chuỗi (ví dụ: "(1,15)") và cung cấp một hằng số tĩnh npos (với r=-1, c=-1) để biểu thị một vị trí không hợp lệ hoặc không thể di chuyển đến.
+2.2. Các Đối tượng Di chuyển
+• MovingObject: Lớp cơ sở trừu tượng cho tất cả các nhân vật và robot có khả năng di chuyển. Nó định nghĩa giao diện chung bao gồm các thuộc tính (index, pos, map, name) và các phương thức ảo thuần túy (getNextPosition, move, str).
+• Sherlock:
+    ◦ Thuộc tính: Có thêm hp (0-500), exp (0-900), và moving_rule (một chuỗi ký tự 'L', 'R', 'U', 'D').
+    ◦ Logic di chuyển: Di chuyển tuần tự theo các hướng trong moving_rule. Khi hết chuỗi, nó sẽ lặp lại từ đầu. Nếu hp hoặc exp bằng 0, Sherlock sẽ ngừng di chuyển.
+• Watson: Tương tự như Sherlock, có các thuộc tính và logic di chuyển theo moving_rule. Điểm khác biệt chính là cách anh tương tác với các phần tử bản đồ như FakeWall.
+• Criminal:
+    ◦ Logic di chuyển: Di chuyển đến vị trí hợp lệ kề bên sao cho tổng khoảng cách Manhattan đến Sherlock và Watson là lớn nhất. Trong trường hợp có nhiều vị trí thỏa mãn, ưu tiên theo thứ tự: Lên (U), Trái (L), Xuống (D), Phải (R).
+    ◦ Hành vi đặc biệt: Cứ sau mỗi 3 bước di chuyển thành công, tên tội phạm sẽ tạo ra một robot tại vị trí cũ của mình.
+2.3. Robot và Logic Tạo Robot
+Robot là các MovingObject được tạo ra bởi Criminal.
+• Điều kiện tạo: Sau mỗi 3 bước đi hợp lệ của tội phạm, một robot sẽ được tạo ra tại vị trí cũ của hắn, nếu mảng chứa các đối tượng di chuyển chưa đầy.
+• Phân loại Robot:
+    ◦ Robot đầu tiên luôn là RobotC.
+    ◦ Các robot tiếp theo được xác định dựa trên khoảng cách: RobotS (nếu gần Sherlock hơn), RobotW (nếu gần Watson hơn), RobotSW (nếu khoảng cách bằng nhau).
+• Logic di chuyển của Robot:
+    ◦ RobotC: Di chuyển đến vị trí hiện tại của Criminal.
+    ◦ RobotS: Di chuyển 1 đơn vị (khoảng cách Manhattan) đến vị trí gần nhất với Sherlock. Ưu tiên lựa chọn theo chiều kim đồng hồ, bắt đầu từ hướng Lên.
+    ◦ RobotW: Di chuyển 1 đơn vị đến vị trí gần nhất với vị trí tiếp theo của Watson.
+    ◦ RobotSW: Di chuyển 2 đơn vị đến vị trí có tổng khoảng cách đến Sherlock và Watson là nhỏ nhất.
+2.4. Hệ thống Vật phẩm và Túi đồ
+• BaseItem: Lớp cơ sở trừu tượng cho các vật phẩm, định nghĩa các phương thức canUse và use.
+• Các loại vật phẩm và tác dụng:
+Vật phẩm
+Tác dụng
+Điều kiện sử dụng
+MagicBook
+Tăng EXP thêm 25%.
+exp ≤ 350
+EnergyDrink
+Hồi HP thêm 20%.
+hp ≤ 100
+FirstAid
+Hồi HP thêm 50%.
+hp ≤ 100 hoặc exp ≤ 350
+ExcemptionCard
+Miễn trừ việc bị giảm HP, EXP khi thua thử thách.
+Chỉ Sherlock dùng được khi HP là số lẻ.
+PassingCard
+Bỏ qua thử thách của Robot. Có thuộc tính challenge để chỉ định loại robot. Nếu dùng sai loại, bị trừ 50 EXP.
+Chỉ Watson dùng được khi HP là số chẵn.
+• Logic tạo vật phẩm: Vật phẩm được tạo ra bên trong robot dựa trên một công thức toán học từ tọa độ (i, j) của robot: p = i * j, tìm số chủ đạo s của p. Loại vật phẩm phụ thuộc vào giá trị của s.
+• BaseBag: Lớp cơ sở biểu diễn túi đồ, được hiện thực bằng danh sách liên kết đơn.
+    ◦ SherlockBag: Chứa tối đa 13 vật phẩm.
+    ◦ WatsonBag: Chứa tối đa 15 vật phẩm.
+    ◦ Cơ chế trao đổi: Khi Sherlock và Watson gặp nhau, Sherlock sẽ tặng tất cả PassingCard cho Watson, sau đó Watson sẽ tặng tất cả ExcemptionCard cho Sherlock.
+2.5. Cấu trúc Điều khiển và Vòng lặp Chính
+• Configuration: Lớp này đọc và phân tích một tập tin cấu hình để khởi tạo mọi tham số của chương trình, bao gồm kích thước bản đồ, vị trí tường, số bước chạy, và các chỉ số ban đầu của nhân vật.
+• ArrayMovingObject: Một mảng động chứa con trỏ đến các đối tượng MovingObject, cho phép quản lý đa hình tất cả các nhân vật và robot trong trò chơi.
+• StudyInPinkProgram: Lớp điều khiển chính của chương trình.
+    ◦ Khởi tạo: Tạo tất cả các đối tượng (Map, Sherlock, Watson, Criminal, ArrayMovingObject) từ Configuration.
+    ◦ Phương thức run(): Thực hiện vòng lặp chính của mô phỏng, tối đa num_steps lần. Trong mỗi bước (step):
+        1. Duyệt qua mảng arr_mv_objs và gọi phương thức move() cho từng đối tượng.
+        2. Sau mỗi lần di chuyển, kiểm tra các sự kiện va chạm và xử lý tương tác.
+        3. Kiểm tra điều kiện dừng (isStop()).
+        4. Kiểm tra và thực hiện việc tạo robot nếu cần.
+    ◦ Điều kiện dừng (isStop()): Chương trình kết thúc khi HP của Sherlock hoặc Watson về 0, hoặc khi Sherlock bắt được tội phạm.
+3. Tương tác và Quy tắc Trò chơi
+Các quy tắc sau được áp dụng khi Sherlock hoặc Watson di chuyển vào cùng một ô với robot. Nhân vật có thể sử dụng vật phẩm từ túi đồ trước và sau mỗi cuộc đụng độ.
+3.1. Tương tác của Sherlock
+• Gặp RobotS:
+    ◦ Thắng (nhận vật phẩm) nếu EXP > 400.
+    ◦ Thua (mất 10% EXP) nếu không.
+• Gặp RobotW: Tự động vượt qua và nhận vật phẩm.
+• Gặp RobotSW:
+    ◦ Thắng (nhận vật phẩm) nếu EXP > 300 và HP > 335.
+    ◦ Thua (mất 15% HP và 15% EXP) nếu không.
+• Gặp RobotC:
+    ◦ Nếu EXP > 500: Bắt được tội phạm, trò chơi kết thúc (không nhận vật phẩm).
+    ◦ Nếu không: Tội phạm chạy thoát, nhưng Sherlock vẫn tiêu diệt robot và nhận vật phẩm.
+3.2. Tương tác của Watson
+• Gặp RobotS: Không có tương tác, không nhận vật phẩm.
+• Gặp RobotW:
+    ◦ Thắng (nhận vật phẩm) nếu HP > 350.
+    ◦ Thua (mất 5% HP) nếu không.
+• Gặp RobotSW:
+    ◦ Thắng (nhận vật phẩm) nếu EXP > 600 và HP > 165.
+    ◦ Thua (mất 15% HP và 15% EXP) nếu không.
+• Gặp RobotC: Không bắt được tội phạm, nhưng tiêu diệt được robot và nhận vật phẩm.
+4. Yêu cầu Kỹ thuật và Nộp bài
+• File nộp: Sinh viên chỉ nộp hai tệp: study_in_pink2.h và study_in_pink2.cpp.
+• Biên dịch: Sử dụng câu lệnh g++ -o main main.cpp study_in_pink2.cpp -I . -std=c++11.
+• Giới hạn include: Chỉ được phép #include "main.h" trong tệp .h và #include "study_in_pink2.h" trong tệp .cpp.
+• Hiện thực đầy đủ: Bắt buộc phải cung cấp phần hiện thực cho tất cả các lớp và phương thức được yêu cầu, dù là hiện thực rỗng ({}).

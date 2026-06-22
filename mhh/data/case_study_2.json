@@ -1,0 +1,12 @@
+{
+  "stocks": [
+    {"width": 10, "height": 8},
+    {"width": 9, "height": 12},
+    {"width": 11, "height": 12}
+  ],
+  "items": [
+    {"width": 4, "height": 3, "quantity": 10},
+    {"width": 2, "height": 2, "quantity": 15},
+    {"width": 2, "height": 3, "quantity": 7}
+  ]
+}
