@@ -1,0 +1,437 @@
+/* ===== VARIABLES & RESET ===== */
+:root {
+  --primary-color: #0a65cc;
+  --primary-hover: #0952a5;
+  --bg-light-blue: #e7f0fa;
+  --text-dark: #18191c;
+  --text-gray: #767f8c;
+  --border-color: #e4e5e8;
+  --white: #ffffff;
+  --bg-body: #f5f7fa;
+}
+
+/* ===== LAYOUT ===== */
+.watch-candidate-container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+  font-family: 'Inter', sans-serif;
+  color: var(--text-dark);
+}
+
+/* ===== SIDEBAR FILTERS (LEFT COLUMN) ===== */
+.sidebar {
+  width: 300px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.filter-widget {
+  background: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.filter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.filter-header h4 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+  color: var(--text-dark);
+}
+
+.highlight-text {
+  color: var(--primary-color);
+  margin-left: 4px;
+}
+
+/* Range Slider Styling */
+.range-slider-container {
+  padding: 10px 0;
+}
+
+.range-slider {
+  width: 100%;
+  -webkit-appearance: none;
+  height: 6px;
+  background: #e4e5e8;
+  border-radius: 5px;
+  outline: none;
+}
+
+/* Chrome/Safari Thumb */
+.range-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 2px solid var(--primary-color);
+  cursor: pointer;
+  margin-top: -6px; /* center the thumb */
+}
+
+/* Chrome/Safari Track Progress (Trick using gradient or JS, here using simple CSS for base) */
+.range-slider::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 6px;
+  cursor: pointer;
+  background: linear-gradient(to right, var(--primary-color) 0%, var(--primary-color) var(--range-progress, 32%), #e4e5e8 var(--range-progress, 32%), #e4e5e8 100%);
+  border-radius: 5px;
+}
+
+/* Custom Radio Buttons */
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.custom-radio {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 14px;
+  color: #474c54;
+  user-select: none;
+}
+
+.custom-radio input {
+  display: none;
+}
+
+.radio-mark {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #cecece;
+  border-radius: 50%;
+  margin-right: 12px;
+  position: relative;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.custom-radio:hover .radio-mark {
+  border-color: var(--primary-color);
+}
+
+.custom-radio input:checked + .radio-mark {
+  border-color: var(--primary-color);
+}
+
+.custom-radio input:checked + .radio-mark::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  background: var(--primary-color);
+  border-radius: 50%;
+}
+
+/* ===== MAIN CONTENT (RIGHT COLUMN) ===== */
+.content-area {
+  flex: 1;
+  width: 100%;
+}
+
+/* Job Select Box styling */
+.job-select-wrapper {
+  margin-bottom: 24px;
+}
+
+.job-select {
+  width: 100%;
+  padding: 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 15px;
+  color: var(--text-dark);
+  background-color: var(--white);
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.job-select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+/* Statistics Bar */
+.statistics-bar {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  background: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  margin-bottom: 24px;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.stat-label {
+  font-size: 13px;
+  color: var(--text-gray);
+  font-weight: 500;
+}
+
+.stat-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.stat-value.pending {
+  color: #f59e0b;
+}
+
+.stat-value.approved {
+  color: #10b981;
+}
+
+.stat-value.rejected {
+  color: #ef4444;
+}
+
+/* Candidates List */
+.candidates-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Card Styling */
+.candidate-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  background: var(--white);
+  transition: all 0.3s ease;
+}
+
+.candidate-card:hover {
+  border-color: var(--primary-color);
+  box-shadow: 0 12px 24px rgba(10, 101, 204, 0.08);
+  transform: translateY(-2px);
+}
+
+/* Highlighted state (for specific logic if needed) */
+.candidate-card.highlighted {
+  border-color: var(--primary-color);
+  background: linear-gradient(to right, #f0f6fc, #ffffff);
+}
+
+/* Candidate Left: Avatar + Info */
+.candidate-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.candidate-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 8px;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 1px solid #f0f0f0;
+}
+
+.candidate-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatar-initials {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #0a65cc, #0d7de6);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.candidate-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.candidate-name {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin: 0 0 6px 0;
+  line-height: 1.2;
+}
+
+.candidate-position {
+  font-size: 14px;
+  color: var(--text-gray);
+  margin: 0 0 8px 0;
+}
+
+.candidate-meta {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.meta-item {
+  font-size: 13px;
+  color: #939AAD;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.meta-item svg {
+  color: #c5c9d6;
+}
+
+/* Candidate Right: Actions */
+.candidate-right {
+  display: flex;
+  align-items: center;
+}
+
+.candidate-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: #cecece;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.btn-icon:hover {
+  background-color: #f5f5f5;
+  color: var(--primary-color);
+}
+
+.btn-icon.saved {
+  color: var(--primary-color);
+}
+
+.btn-view-profile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background-color: var(--bg-light-blue);
+  color: var(--primary-color);
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+/* BUTTON HOVER EFFECT - GIỐNG MẪU */
+/* Khi hover vào nút */
+.btn-view-profile:hover {
+  background-color: var(--primary-color);
+  color: var(--white);
+}
+
+/* Khi hover vào thẻ Card, nút cũng đổi màu (giống mẫu Jane Cooper) */
+.candidate-card:hover .btn-view-profile {
+  background-color: var(--primary-color);
+  color: var(--white);
+}
+
+.btn-view-profile svg {
+  transition: transform 0.2s;
+}
+
+.candidate-card:hover .btn-view-profile svg {
+  transform: translateX(4px);
+}
+
+/* Loading & Empty States */
+.loading-state, .empty-state {
+  text-align: center;
+  padding: 60px 0;
+  color: var(--text-gray);
+}
+.spinner {
+  margin: 0 auto 16px;
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid var(--primary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+/* Responsive */
+@media (max-width: 992px) {
+  .watch-candidate-container {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .candidate-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .candidate-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .candidate-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .btn-view-profile {
+    flex: 1;
+    justify-content: center;
+  }
+}

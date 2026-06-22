@@ -1,0 +1,42 @@
+# Node modules
+node_modules/
+
+# Build output
+build/
+dist/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# dotenv environment files
+.env
+.env.*
+
+# IDE/editor folders
+.vscode/
+.idea/
+.DS_Store
+
+# OS generated
+Thumbs.db
+
+# React build
+client/build/
+
+# Misc
+*.local
+*.cache
+*.log
+
+# Coverage
+coverage/
+
+# Ignore production database dumps/backups
+*.sql
+*.sqlite
+*.bak
+
+# Ignore by OS
+*.swp

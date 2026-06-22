@@ -1,0 +1,249 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  border-bottom: 1px solid #E4E5E8;
+  padding: 0 24px;
+  min-height: 65px;
+  top:0;
+  /* position: fixed; */
+ 
+  z-index: 1000;
+  font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.navbar__logo {
+  display: flex;
+  align-items: center;
+  font-size: large;
+
+}
+
+.navbar__brand {
+  font-weight: 500;
+  color: #0B1767;
+  font-size: 20px;
+  line-height: 1.1;
+  font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-weight: bold;
+}
+
+.navbar__subtitle {
+  font-size: 13px;
+  color: #888;
+}
+
+.navbar__menu {
+  display: flex;
+  gap: 0px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex: 1;
+  justify-content: center;
+}
+
+.navbar__menu li {
+  display: inline-block;
+  margin-left: 28px;
+  /* padding-top: 23px; */
+  position: relative;
+}
+
+.navbar__menu a {
+  color: #444;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 400;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.navbar__menu a:hover {
+  background-color: #0B1767;
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  /* transform: translateY(-2px); */
+}
+
+.it-blue {
+  color: #0A65CC;   /* màu xanh bạn muốn */
+  font-weight: 600;
+}
+
+.viec-black {
+  color: #000000;   /* màu đen */
+  font-weight: 600;
+}
+
+
+.navbar__menu a::before {
+  display: none;
+}
+
+.navbar__menu a:hover::before {
+  display: none;
+}
+
+.navbar__menu a {
+  color: #111;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+
+.navbar__login {
+  display: flex; 
+  margin: auto;
+  padding: 10px;
+  align-items: center;
+}
+
+.navbar__login-btn {
+  background: #0A65CC;
+  color: #fff;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 22px;
+  font-size: 15px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.navbar__login-btn:hover {
+  background: #bddcfc;
+  color:#444;
+}
+.navbar__login_employer-btn {
+  background: #ffffff;
+  color: #0A65CC;
+  font-weight: 500;
+  border: 1px solid #0A65CC;
+  border-radius: 8px;
+  padding: 10px 22px;
+  font-size: 15px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.navbar__login_employer-btn:hover {
+  background: #bddcfc;
+  color:#444;}
+
+
+/* User Section */
+.navbar__user {
+  position: relative;
+  margin-left: 20px;
+}
+
+.navbar__user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.navbar__user-info:hover {
+  background: #e9ecef;
+}
+
+.navbar__user-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #0A65CC;
+}
+
+.navbar__user-name {
+  font-weight: 500;
+  color: #18191C;
+  font-size: 14px;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Dropdown Menu */
+.navbar__dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 200px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 8px 0;
+  z-index: 1000;
+  animation: dropdownFadeIn 0.2s ease;
+}
+
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.navbar__dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  color: #5E6670;
+  text-decoration: none;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+}
+
+.navbar__dropdown-item:hover {
+  background: #f8f9fa;
+  color: #0A65CC;
+}
+
+.navbar__dropdown-divider {
+  height: 1px;
+  background: #e9ecef;
+  margin: 8px 0;
+}
+
+.navbar__dropdown-logout {
+  color: #E05151;
+}
+
+.navbar__dropdown-logout:hover {
+  background: #FEE;
+  color: #C33;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .navbar__user-name {
+    display: none;
+  }
+  
+  .navbar__user-info {
+    padding: 8px;
+  }
+}

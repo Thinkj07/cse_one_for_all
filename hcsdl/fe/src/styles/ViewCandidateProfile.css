@@ -1,0 +1,582 @@
+/* View Candidate Profile Styles */
+
+.candidate-profile-container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 30px 20px;
+}
+
+/* Header */
+.profile-header {
+  margin-bottom: 30px;
+}
+
+.btn-back-arrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  color: #5e6670;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 8px 0;
+  transition: color 0.3s;
+}
+
+.btn-back-arrow:hover {
+  color: #0a65cc;
+}
+
+/* Profile Content Layout */
+.profile-content {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 30px;
+}
+
+/* Left Column */
+.profile-left {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.profile-card {
+  background: white;
+  border-radius: 8px;
+  padding: 40px 30px 30px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.profile-avatar-section {
+  margin-bottom: 20px;
+}
+
+.profile-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile-avatar-placeholder {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0a65cc 0%, #0284c7 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  font-weight: 600;
+  margin: 0 auto;
+}
+
+.profile-name {
+  font-size: 28px;
+  font-weight: 600;
+  color: #18191c;
+  margin: 0 0 8px 0;
+}
+
+.profile-title {
+  font-size: 16px;
+  color: #767f8c;
+  margin: 0 0 24px 0;
+}
+
+.profile-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.btn-save {
+  width: 48px;
+  height: 48px;
+  border-radius: 6px;
+  border: 1px solid #e4e5e8;
+  background: white;
+  color: #18191c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-save:hover:not(:disabled) {
+  border-color: #0a65cc;
+  color: #0a65cc;
+}
+
+.btn-save.saved {
+  background: #0a65cc;
+  border-color: #0a65cc;
+  color: white;
+}
+
+.btn-save:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-approve,
+.btn-reject {
+  flex: 1;
+  height: 48px;
+  border-radius: 6px;
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-approve {
+  background: #10b981;
+  color: white;
+}
+
+.btn-approve:hover:not(:disabled) {
+  background: #059669;
+}
+
+.btn-approve:disabled {
+  background: #86efac;
+  cursor: not-allowed;
+}
+
+.btn-reject {
+  background: #ef4444;
+  color: white;
+}
+
+.btn-reject:hover:not(:disabled) {
+  background: #dc2626;
+}
+
+.btn-reject:disabled {
+  background: #fca5a5;
+  cursor: not-allowed;
+}
+
+.btn-send-mail {
+  flex: 1;
+  height: 48px;
+  border-radius: 6px;
+  border: none;
+  background: #0a65cc;
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn-send-mail:hover {
+  background: #0850a8;
+}
+
+/* Profile Sections */
+.profile-section {
+  background: white;
+  border-radius: 8px;
+  padding: 30px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #18191c;
+  margin: 0 0 20px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.biography-text {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #5e6670;
+  margin: 0;
+}
+
+.cover-letter-text {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #5e6670;
+}
+
+.cover-letter-text p {
+  margin: 0 0 16px 0;
+}
+
+.cover-letter-text p:last-child {
+  margin-bottom: 0;
+}
+
+/* Awards Section */
+.awards-content {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 6px;
+  border-left: 4px solid #0a65cc;
+}
+
+.award-icon {
+  color: #0a65cc;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.award-text {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #18191c;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Social Links */
+.social-links {
+  display: flex;
+  gap: 12px;
+}
+
+.social-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  transition: transform 0.3s;
+  text-decoration: none;
+}
+
+.social-icon:hover {
+  transform: translateY(-3px);
+}
+
+.social-icon.facebook {
+  background: #1877f2;
+}
+
+.social-icon.twitter {
+  background: #1da1f2;
+}
+
+.social-icon.linkedin {
+  background: #0077b5;
+}
+
+.social-icon.youtube {
+  background: #ff0000;
+}
+
+.social-icon.instagram {
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+}
+
+.social-note {
+  margin-top: 12px;
+  font-size: 13px;
+  color: #767f8c;
+  font-style: italic;
+}
+
+/* Right Column */
+.profile-right {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Info Grid */
+.info-grid {
+  background: white;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.info-item {
+  display: flex;
+  gap: 12px;
+}
+
+.info-icon {
+  width: 48px;
+  height: 48px;
+  background: #e7f0fa;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0a65cc;
+  flex-shrink: 0;
+}
+
+.info-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.info-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #767f8c;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.info-value {
+  font-size: 15px;
+  font-weight: 500;
+  color: #18191c;
+}
+
+.info-age {
+  color: #767f8c;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+/* Resume Section */
+.resume-section {
+  background: white;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.resume-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.resume-card:hover {
+  background: #e7f0fa;
+}
+
+.resume-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.resume-name {
+  font-size: 15px;
+  font-weight: 500;
+  color: #18191c;
+}
+
+.resume-format {
+  font-size: 13px;
+  color: #767f8c;
+}
+
+.btn-download {
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  background: #0a65cc;
+  border: none;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn-download:hover {
+  background: #0850a8;
+}
+
+/* Contact Section */
+.contact-section {
+  background: white;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.contact-item {
+  display: flex;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid #e4e5e8;
+}
+
+.contact-item:first-of-type {
+  padding-top: 0;
+}
+
+.contact-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.contact-icon {
+  width: 40px;
+  height: 40px;
+  background: #e7f0fa;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0a65cc;
+  flex-shrink: 0;
+}
+
+.contact-details {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.contact-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #767f8c;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.contact-label.secondary {
+  margin-top: 12px;
+}
+
+.contact-value {
+  font-size: 15px;
+  font-weight: 500;
+  color: #18191c;
+  word-break: break-word;
+}
+
+.contact-value.link {
+  color: #0a65cc;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.contact-value.link:hover {
+  color: #0850a8;
+  text-decoration: underline;
+}
+
+.contact-secondary {
+  font-size: 14px;
+  color: #5e6670;
+  line-height: 1.5;
+  margin-top: 4px;
+}
+
+/* Loading and Error States */
+.loading-container,
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  gap: 20px;
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid #e4e5e8;
+  border-top-color: #0a65cc;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.btn-back {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: #0a65cc;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn-back:hover {
+  background: #0850a8;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .profile-content {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-right {
+    order: -1;
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .candidate-profile-container {
+    padding: 20px 15px;
+  }
+
+  .profile-card,
+  .profile-section,
+  .info-grid,
+  .resume-section,
+  .contact-section {
+    padding: 20px;
+  }
+
+  .profile-name {
+    font-size: 24px;
+  }
+
+  .social-links {
+    flex-wrap: wrap;
+  }
+}
