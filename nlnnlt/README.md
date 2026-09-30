@@ -1,18 +1,21 @@
 # Nguyên lý ngôn ngữ lập trình
 
-Môn khó nhất khoa. Gồm các lí do sau:
-- Điểm danh bằng quiz trên lớp
-- Mỗi buổi random sv lên hỏi bài
-- Thi giữa kì 45 câu theo công thức S = (x - 9)/(45 - 9). Tức là mỗi câu có 5 đáp án, đánh lụi kiểu gì cũng được 9 (45/5=9) câu nên trừ 9 câu :)?
-- 4 btl (xếp hạng độ khó 2 < 1 < 4 < 3)
-- Harmony 1 btl từ 10 còn 5
-- Harmony 2 tự luận giấy trước khi thi cuối kì
-- Thi cuối kì tương tự công thức trên
+Thư mục này lưu các bài tập lớn về xây dựng trình biên dịch cho ngôn ngữ TyC, một ngôn ngữ dạng C đơn giản phục vụ mục đích học tập.
 
-**Note**: Từ kì 252 hết áp dụng harmony (trừ lớp thầy P)
+## Nội dung bài tập
 
-Có 4 btl gồm các nội dung sau:
-- BTL1: Lexer + parser
-- BTL2: AST generation
-- BTL3: Static checker/Semantic analysis
-- BTL4: Code generation
+Có 4 bài tập lớn, được triển khai theo các giai đoạn của một trình biên dịch:
+
+1. **Lexer và parser**: Phân tích từ vựng, phân tích cú pháp và xử lý lỗi đầu vào.
+2. **Sinh AST**: Chuyển cây phân tích cú pháp thành cây cú pháp trừu tượng.
+3. **Phân tích ngữ nghĩa**: Kiểm tra phạm vi, kiểu dữ liệu, suy luận kiểu và các ràng buộc ngữ nghĩa.
+4. **Sinh mã**: Sinh mã đích từ AST đã được kiểm tra.
+
+## Cấu trúc thư mục
+
+- [`prac/`](prac/): Các bài thực hành theo từng chủ đề của môn học.
+- [`tyc_compiler/`](tyc_compiler/): Mã nguồn trình biên dịch TyC, đặc tả ngôn ngữ, bộ kiểm thử và báo cáo.
+
+## Công nghệ
+
+Phần trình biên dịch sử dụng Python và ANTLR4. Chi tiết về cú pháp, ngữ nghĩa và cách chạy từng bài được mô tả trong các tài liệu README hoặc đặc tả bên trong [`tyc_compiler/`](tyc_compiler/).
