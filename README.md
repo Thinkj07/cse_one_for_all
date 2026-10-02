@@ -9,14 +9,14 @@ Repository này tập hợp các bài thực hành theo nhiều hướng: cấu 
 | Thư mục                | Chủ đề                         | Nội dung chính                                                        |
 | ---------------------- | ------------------------------ | --------------------------------------------------------------------- |
 | [`ctdlvgt/`](ctdlvgt/) | Cấu trúc dữ liệu và giải thuật | Các bài tập về hash, heap, mạng nơ-ron và xử lý dữ liệu.              |
-| [`ctrr/`](ctrr/)       | Giải thuật                     | Cài đặt Bellman-Ford và bài toán người du lịch bằng C++.              |
+| [`ctrr/`](ctrr/)       | Cấu trúc rời rạc               | Cài đặt Bellman-Ford và bài toán người du lịch bằng C++.              |
 | [`hcsdl/`](hcsdl/)     | Hệ cơ sở dữ liệu               | Ứng dụng tuyển dụng với thành phần backend, frontend và tài liệu API. |
 | [`hdh/`](hdh/)         | Hệ điều hành                   | Bài tập về lập lịch, đồng bộ hóa và quản lý tài nguyên hệ thống.      |
 | [`ktlt/`](ktlt/)       | Kỹ thuật lập trình             | Các bài tập lập trình và phát triển phần mềm.                         |
 | [`ktmt/`](ktmt/)       | Kiến trúc máy tính             | Bài tập MIPS Assembly và thực hành trên trình mô phỏng.               |
 | [`ltg/`](ltg/)         | Lập trình game                 | Các bài tập phát triển game từ cơ bản đến nâng cao.                   |
 | [`ltnc/`](ltnc/)       | Lập trình nâng cao             | Bài tập Java, Python và các kỹ thuật lập trình nâng cao.              |
-| [`mhh/`](mhh/)         | Mô hình hóa và tối ưu hóa      | Mô hình hóa bài toán thực tế và các phương pháp tối ưu.               |
+| [`mhh/`](mhh/)         | Mô hình hóa toán học           | Mô hình hóa bài toán thực tế và các phương pháp tối ưu.               |
 | [`mmt/`](mmt/)         | Mạng máy tính                  | Bài tập lập trình mạng và thiết kế mạng bằng Cisco Packet Tracer.     |
 | [`nlnnlt/`](nlnnlt/)   | Nguyên lý ngôn ngữ lập trình   | Lexer, parser, AST, kiểm tra ngữ nghĩa và sinh mã.                    |
 | [`nmttnt/`](nmttnt/)   | Nhập môn trí tuệ nhân tạo      | Tìm kiếm, game AI, machine learning và deep learning.                 |
